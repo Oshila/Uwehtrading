@@ -49,6 +49,7 @@ export default function Dashboard() {
 
         <h1 className="text-3xl font-semibold mb-8">Dashboard</h1>
 
+        {/* Personal Info */}
         <section className="mb-8 p-6 border rounded shadow-sm bg-white">
           <h2 className="text-xl font-semibold mb-2">Personal Info</h2>
           <p className="mb-4 text-gray-700">Edit your username, email, and other personal details.</p>
@@ -57,24 +58,42 @@ export default function Dashboard() {
           <Link href="/account-settings" className="inline-block bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">Account Settings</Link>
         </section>
 
+        {/* Account Management */}
+        <section className="mb-8 p-6 border rounded shadow-sm bg-white">
+          <h2 className="text-xl font-semibold mb-2">Account Management</h2>
+          <p className="mb-4 text-gray-700">
+            Request professional account management or view your current plan & status.
+          </p>
+          <Link
+            href="/account-management"
+            className="inline-block bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition"
+          >
+            Go to Account Management
+          </Link>
+        </section>
+
+        {/* Pricing & Services */}
         <section className="mb-8 p-6 border rounded shadow-sm bg-white">
           <h2 className="text-xl font-semibold mb-2">Pricing & Services</h2>
           <p className="mb-4 text-gray-700">View our available services and pricing plans.</p>
           <Link href="/plans" className="inline-block bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">Services & Pricing</Link>
         </section>
 
+        {/* Billing History */}
         <section className="mb-8 p-6 border rounded shadow-sm bg-white">
           <h2 className="text-xl font-semibold mb-2">Billing History</h2>
           <p className="mb-4 text-gray-700">Check out all your payment history and invoices.</p>
           <Link href="/transactions" className="inline-block bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">Payment History</Link>
         </section>
 
+        {/* Subscriptions */}
         <section className="mb-8 p-6 border rounded shadow-sm bg-white">
           <h2 className="text-xl font-semibold mb-2">Subscriptions</h2>
           <p className="mb-4 text-gray-700">Create and manage your active subscriptions.</p>
           <Link href="/subscription" className="inline-block bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">Manage Subscriptions</Link>
         </section>
 
+        {/* Signal Room */}
         {hasPlan && (
           <section className="mb-8 p-6 border rounded shadow-sm bg-white">
             <h2 className="text-xl font-semibold mb-2">Signal Room</h2>

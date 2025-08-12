@@ -26,6 +26,8 @@ export default function Navbar({ hasPlan }: NavbarProps) {
     '/admin/signals',
     '/admin/assignPlan',
     '/admin-login',
+    '/account-management-public',
+    '/admin/accountManagement',
   ]
 
   if (hideNavbarPaths.includes(pathname)) return null
@@ -75,23 +77,32 @@ export default function Navbar({ hasPlan }: NavbarProps) {
           </div>
 
           {/* Right side desktop */}
-          <div className="hidden md:flex items-center space-x-8 text-sm">
-            <Link href="/" className="text-gray-600 hover:text-gray-800 transition" title="Return to main website">
-              Home Website
-            </Link>
-            <span className="text-gray-400 cursor-not-allowed select-none" title="Coming soon">
-              Account Management
-            </span>
-            <span className="text-gray-400 cursor-not-allowed select-none" title="Coming soon">
-              Incoming
-            </span>
-            <button
-              onClick={handleLogout}
-              className="text-red-600 hover:text-red-800 font-semibold transition"
-            >
-              Logout
-            </button>
-          </div>
+<div className="hidden md:flex items-center space-x-8 text-sm">
+  <Link
+    href="/"
+    className="text-gray-600 hover:text-gray-800 transition"
+    title="Return to main website"
+  >
+    Home Website
+  </Link>
+
+  {/* Account Management Link */}
+  <Link
+    href="account-management"
+    className="text-gray-600 hover:text-gray-800 transition"
+    title="Request account management"
+  >
+    Account Management
+  </Link>
+
+  <button
+    onClick={handleLogout}
+    className="text-red-600 hover:text-red-800 font-semibold transition"
+  >
+    Logout
+  </button>
+</div>
+
 
           {/* Mobile menu button */}
           <button
@@ -147,9 +158,9 @@ export default function Navbar({ hasPlan }: NavbarProps) {
             <Link href="/" onClick={() => setIsOpen(false)} className="block py-2 px-3 rounded hover:bg-gray-100 transition">
               Home Website
             </Link>
-            <span className="block py-2 px-3 text-gray-400 cursor-not-allowed select-none" title="Coming soon">
-              Account Management (coming soon)
-            </span>
+            <Link href="/account-management" onClick={() => setIsOpen(false)} className="block py-2 px-3 rounded hover:bg-gray-100 transition">
+              Account Management
+            </Link>
             <span className="block py-2 px-3 text-gray-400 cursor-not-allowed select-none" title="Coming soon">
               Incoming (coming soon)
             </span>

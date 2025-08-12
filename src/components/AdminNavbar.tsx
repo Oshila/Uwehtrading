@@ -87,6 +87,13 @@ export default function AdminNavbar() {
           >
             All Users
           </Link>
+            <Link
+            href="/admin/accountManagement"
+            className="block hover:underline"
+            onClick={() => setOpen(false)}
+          >
+            Account Management
+          </Link>
           <Link
             href="/admin/profile"
             className="block hover:underline"

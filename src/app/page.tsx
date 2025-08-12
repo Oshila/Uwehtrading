@@ -24,6 +24,7 @@ export default function HomePage() {
             <a href="#features" className="hover:underline">Features</a>
             <a href="#pricing" className="hover:underline">Pricing</a>
             <a href="#profits" className="hover:underline">Trade Setups</a>
+            <a href="/account-management-public" className="hover:underline">Account Management</a>
             <a href="/login" className="bg-white text-black px-4 py-2 rounded-xl hover:bg-gray-200 transition">Login</a>
           </nav>
 
@@ -45,6 +46,7 @@ export default function HomePage() {
             <a href="#features" className="block hover:underline">Features</a>
             <a href="#pricing" className="block hover:underline">Pricing</a>
             <a href="#profits" className="block hover:underline">Trade Setups</a>
+            <a href="/account-management-public" className="hover:underline">Account Management</a>
             <a href="/login" className="block bg-white text-black px-4 py-2 rounded-xl w-max hover:bg-gray-200 transition">Login</a>
           </div>
         )}
