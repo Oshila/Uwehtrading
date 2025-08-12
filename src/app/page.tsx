@@ -115,7 +115,7 @@ export default function HomePage() {
 
       <section className="py-20 px-6 bg-white text-gray-900">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Why Choose UwehFx?</h2>
+          <h2 className="text-4xl font-bold mb-6"> Why choose UWEHSTRADEHUB? </h2>
           <ul className="space-y-4 text-left max-w-md mx-auto text-lg">
             <li className="flex items-start">
               <span className="text-green-600 font-bold text-xl mr-2">✓</span>
@@ -204,7 +204,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="text-center text-white/50 text-sm mt-10">
-          © {new Date().getFullYear()} UwehFX. All rights reserved.
+          © {new Date().getFullYear()} UwehsTradeHub. All rights reserved.
         </div>
       </footer>
     </div>
