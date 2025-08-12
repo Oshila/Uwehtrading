@@ -10,6 +10,7 @@ import {
   query,
   orderBy,
   deleteDoc,
+  Timestamp,
 } from 'firebase/firestore'
 import { firestore } from '@/lib/firebase'
 
@@ -22,8 +23,8 @@ interface UserRequest {
   paymentStatus: string
   status: string
   expertId?: string | null
-  createdAt?: any
-  updatedAt?: any
+  createdAt?: Timestamp | null
+  updatedAt?: Timestamp | null
 }
 
 interface Expert {

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import {Timestamp } from 'firebase/firestore'
 import { auth, firestore } from '@/lib/firebase'
 import {
   collection,
@@ -43,7 +44,7 @@ type UserRequest = {
   expertId?: string | null
   expertName?: string | null
   expertEmail?: string | null
-  createdAt?: any
+  createdAt?: Timestamp | null
 }
 
 type Message = {
@@ -51,7 +52,7 @@ type Message = {
   text: string
   senderId: string
   senderRole: 'user' | 'expert' | 'admin'
-  timestamp?: any
+  timestamp?: Timestamp | null
   requestId?: string
 }
 
@@ -270,10 +271,14 @@ if (expertSnap.exists()) {
     }
   }
 
-  const formatTime = (timestamp: any) => {
-    if (!timestamp) return ''
-    try { return timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) } catch { return '' }
+const formatTime = (timestamp: Timestamp | null | undefined) => {
+  if (!timestamp) return ''
+  try {
+    return timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  } catch {
+    return ''
   }
+}
 
   // ---------- UI ----------
   if (loadingUserType) return <div className="p-6">Loading...</div>
@@ -344,7 +349,8 @@ if (expertSnap.exists()) {
                 </>}
               </div>
             </div>
-          ) : <p className="mb-6">You don't have any active requests</p>}
+          ) : <p className="mb-6">You don&apos;t have any active requests</p>
+}
 
           {latestRequest?.status === 'active' && (
             <div className="mb-6 border rounded p-4 bg-white">
