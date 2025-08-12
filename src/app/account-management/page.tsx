@@ -28,9 +28,9 @@ type Plan = {
 }
 
 const PLANS: Plan[] = [
-  { id: 'lite', name: 'Lite Plan', description: 'Deposit[min-max:500-1000$]', features: ['Aim up to 4000$', 'Expert Manager Assigned','Chat with Expert'], price: '$50/One-time Payment' },
-  { id: 'pro', name: 'Pro Plan', description: 'Deposit[min-max:1500-5000$]', features: ['Aim up to 8000$', 'Weekly reports', 'Dedicated assistant'], price: '$100/One-time Payment' },
-  { id: 'geant', name: 'Geant Plan', description: 'Deposit[min-max:6000-9000$]', features: ['Aim up to 15000$ ', 'Weekly reports', 'Dedicated assistant'], price: '$300/One-time Payment' }, 
+  { id: 'lite', name: 'Lite Plan', description: '', features: ['Aim up to 4000$', 'Expert Manager Assigned','Chat with Expert'], price: '$50/One-time Payment' },
+  { id: 'pro', name: 'Pro Plan', description: '' , features: ['Aim up to 8000$', 'Weekly reports', 'Dedicated assistant'], price: '$100/One-time Payment' },
+  { id: 'geant', name: 'Geant Plan', description: '', features: ['Aim up to 15000$ ', 'Weekly reports', 'Dedicated assistant'], price: '$300/One-time Payment' }, 
   { id: 'grande', name: 'Grande Plan', description: 'Advanced account management[10,000$]', features: ['Priority support', 'Weekly reports', 'Dedicated assistant'], price: 'contact!!' },
 ]
 
