@@ -192,7 +192,7 @@ export default function HomePage() {
           <div>
             <h4 className="text-lg font-semibold mb-2">Contact</h4>
             <p>Email: <a href="Uwehstradehub@gmail.com" className="underline">Uwehstradehub@gmail.com</a></p>
-            <p>Phone: +2347049507442</p>
+            <p>Phone: +234 906 325 7360</p>
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
