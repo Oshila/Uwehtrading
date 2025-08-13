@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import {Timestamp } from 'firebase/firestore'
+import { Timestamp } from 'firebase/firestore'
 import { auth, firestore } from '@/lib/firebase'
 import {
   collection,
@@ -28,9 +28,9 @@ type Plan = {
 }
 
 const PLANS: Plan[] = [
-  { id: 'lite', name: 'Lite Plan', description: '', features: ['Aim up to 4000$', 'Expert Manager Assigned','Chat with Expert'], price: '$50/One-time Payment' },
-  { id: 'pro', name: 'Pro Plan', description: '' , features: ['Aim up to 8000$', 'Weekly reports', 'Dedicated assistant'], price: '$100/One-time Payment' },
-  { id: 'geant', name: 'Geant Plan', description: '', features: ['Aim up to 15000$ ', 'Weekly reports', 'Dedicated assistant'], price: '$300/One-time Payment' }, 
+  { id: 'lite', name: 'Lite Plan', description: '', features: ['Aim up to 4000$', 'Expert Manager Assigned', 'Chat with Expert'], price: '$500 - $1000' },
+  { id: 'pro', name: 'Pro Plan', description: '', features: ['Aim up to 8000$', 'Weekly reports', 'Dedicated assistant'], price: '$1500 - $3000' },
+  { id: 'geant', name: 'Geant Plan', description: '', features: ['Aim up to 15000$ ', 'Weekly reports', 'Dedicated assistant'], price: '$3500 - $5000' },
   { id: 'grande', name: 'Grande Plan', description: 'Advanced account management[10,000$]', features: ['Priority support', 'Weekly reports', 'Dedicated assistant'], price: 'contact!!' },
 ]
 
@@ -94,19 +94,19 @@ export default function AccountDashboard() {
     if (!currentUser) return
     let mounted = true
     setLoadingUserType(true)
-    ;(async () => {
-      try {
-        const expertRef = doc(firestore, 'experts', currentUser.uid)
-        const expertSnap = await getDoc(expertRef)
-        if (!mounted) return
-        setIsExpert(expertSnap.exists())
-      } catch (err) {
-        console.error('Error checking expert status', err)
-        setIsExpert(false)
-      } finally {
-        if (mounted) setLoadingUserType(false)
-      }
-    })()
+      ; (async () => {
+        try {
+          const expertRef = doc(firestore, 'experts', currentUser.uid)
+          const expertSnap = await getDoc(expertRef)
+          if (!mounted) return
+          setIsExpert(expertSnap.exists())
+        } catch (err) {
+          console.error('Error checking expert status', err)
+          setIsExpert(false)
+        } finally {
+          if (mounted) setLoadingUserType(false)
+        }
+      })()
     return () => { mounted = false }
   }, [currentUser])
 
@@ -135,13 +135,13 @@ export default function AccountDashboard() {
             // but that may fail due to rules: wrap in try/catch to avoid blowing up snapshot callback.
             try {
               const expertSnap = await getDoc(doc(firestore, 'experts', req.expertId));
-if (expertSnap.exists()) {
-  const expertData = expertSnap.data() as Expert;
-  setAssignedExpert({
-    ...expertData,
-    id: expertSnap.id // put id last so it overrides if needed
-  });
-}
+              if (expertSnap.exists()) {
+                const expertData = expertSnap.data() as Expert;
+                setAssignedExpert({
+                  ...expertData,
+                  id: expertSnap.id // put id last so it overrides if needed
+                });
+              }
 
               else setAssignedExpert(null)
             } catch (err) {
@@ -271,14 +271,14 @@ if (expertSnap.exists()) {
     }
   }
 
-const formatTime = (timestamp: Timestamp | null | undefined) => {
-  if (!timestamp) return ''
-  try {
-    return timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  } catch {
-    return ''
+  const formatTime = (timestamp: Timestamp | null | undefined) => {
+    if (!timestamp) return ''
+    try {
+      return timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    } catch {
+      return ''
+    }
   }
-}
 
   // ---------- UI ----------
   if (loadingUserType) return <div className="p-6">Loading...</div>
@@ -343,6 +343,19 @@ const formatTime = (timestamp: Timestamp | null | undefined) => {
                 <div><p className="font-medium">Status:</p>
                   <span className={`px-2 py-1 text-xs rounded ${latestRequest.status === 'approved' ? 'bg-green-100 text-green-800' : latestRequest.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : latestRequest.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'}`}>{latestRequest.status}</span>
                 </div>
+                {latestRequest.status === 'pending' && (
+                  <div className="col-span-2 mt-2">
+                    <a
+                      href="https://t.me/UWEHFX" // <-- put your link here
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-blue-600 underline text-base font-medium hover:text-blue-800"
+                    >
+                      Message Admin to Review
+                    </a>
+                  </div>
+                )}
+
                 {assignedExpert && <>
                   <div><p className="font-medium">Assigned Expert:</p><p>{assignedExpert.name}</p></div>
                   <div><p className="font-medium">Contact:</p><p>{assignedExpert.email}</p></div>
@@ -350,7 +363,7 @@ const formatTime = (timestamp: Timestamp | null | undefined) => {
               </div>
             </div>
           ) : <p className="mb-6">You don&apos;t have any active requests</p>
-}
+          }
 
           {latestRequest?.status === 'active' && (
             <div className="mb-6 border rounded p-4 bg-white">
@@ -386,7 +399,7 @@ const formatTime = (timestamp: Timestamp | null | undefined) => {
                     <h3 className="text-lg font-bold mb-2">{plan.name}</h3>
                     <p className="text-gray-600 mb-1">{plan.description}</p>
                     <p className="font-medium text-blue-600 mb-3">{plan.price}</p>
-                    <ul className="mb-4 space-y-1">{plan.features.map((f,i) => <li key={i} className="text-sm flex items-start"><span className="mr-1">✓</span>{f}</li>)}</ul>
+                    <ul className="mb-4 space-y-1">{plan.features.map((f, i) => <li key={i} className="text-sm flex items-start"><span className="mr-1">✓</span>{f}</li>)}</ul>
                     <button onClick={() => submitPlanRequest(plan.id)} disabled={loading} className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400">{loading ? 'Submitting...' : 'Request Plan'}</button>
                   </div>
                 ))}

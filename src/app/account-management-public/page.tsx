@@ -75,16 +75,48 @@ export default function AccountManagementPage() {
           </div>
         </section>
 
-        {/* Terms & Requirements */}
-        <section>
-          <h2 className="text-3xl font-bold text-center mb-8">Terms & Requirements</h2>
-          <ul className="list-disc list-inside space-y-2 max-w-2xl mx-auto text-gray-700">
-            <li>One-time management fee must be paid before service starts.</li>
-            <li>Deposits are made directly to the trading account assigned.</li>
-            <li>Profit targets must be met within the given timeframe.</li>
-            <li>We do not guarantee profits — trading carries risk.</li>
-          </ul>
-        </section>
+{/* Terms Acceptance */}
+<section className="mt-16 text-center">
+  <h2 className="text-3xl font-bold mb-4">Read & Accept Terms</h2>
+  <p className="text-gray-700 mb-6">
+    Please read our full{" "}
+    <a
+      href="/terms.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 hover:underline"
+    >
+      Terms and Conditions
+    </a>{" "}
+    before proceeding.
+  </p>
+
+  <div className="flex items-center justify-center space-x-2">
+    <input
+      id="acceptTerms"
+      type="checkbox"
+      className="w-5 h-5"
+    />
+    <label htmlFor="acceptTerms" className="text-gray-700">
+      I have read and agree to the Terms and Conditions
+    </label>
+  </div>
+
+  <Link
+    href="/login"
+    className="mt-6 inline-block px-6 py-3 rounded-lg bg-black text-white hover:bg-gray-800 transition disabled:opacity-50"
+    onClick={(e) => {
+    const checkbox = document.getElementById("acceptTerms") as HTMLInputElement | null;
+    if (!checkbox?.checked) {
+      e.preventDefault();
+      alert("Please accept the Terms and Conditions first.");
+    }
+  }}
+>
+    Get Started
+  </Link>
+</section>
+
       </div>
     </>
   )
