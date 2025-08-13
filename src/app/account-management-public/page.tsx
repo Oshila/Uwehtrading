@@ -3,10 +3,10 @@ import Link from 'next/link'
 
 export default function AccountManagementPage() {
   const plans = [
-    { name: 'Lite Phase', price: '$55 One-Time Fee', deposit: '$1,000', profitTarget: '20% in 30 Days', features: ['One-Time Payment', 'Deposit of $1,000', 'Profit Target: 20%', 'Expert Trader Management'] },
-    { name: 'Pro Phase', price: '$85 One-Time Fee', deposit: '$3,000', profitTarget: '20% in 30 Days', features: ['One-Time Payment', 'Deposit of $3,000', 'Profit Target: 20%', 'Expert Trader Management'] },
-    { name: 'Geant Phase', price: '$120 One-Time Fee', deposit: '$5,000', profitTarget: '20% in 30 Days', features: ['One-Time Payment', 'Deposit of $5,000', 'Profit Target: 20%', 'Expert Trader Management'] },
-    { name: 'Grande Phase', price: '$250 One-Time Fee', deposit: '$10,000', profitTarget: '20% in 30 Days', features: ['One-Time Payment', 'Deposit of $10,000', 'Profit Target: 20%', 'Expert Trader Management'] },
+    { name: 'Lite Phase', price: '', deposit: '$500 - $1,000', profitTarget: '20% in 30 Days', features: ['One-Time Payment', 'Deposit of $500 - $1,000', 'Profit Target: 20%', 'Expert Trader Management'] },
+    { name: 'Pro Phase', price: '', deposit: '$1500 - $3,000', profitTarget: '20% in 30 Days', features: ['One-Time Payment', 'Deposit of $1500 - $3,000', 'Profit Target: 20%', 'Expert Trader Management'] },
+    { name: 'Geant Phase', price: '', deposit: '$3500 - $5,000', profitTarget: '20% in 30 Days', features: ['One-Time Payment', 'Deposit of $3500 -  $5,000', 'Profit Target: 20%', 'Expert Trader Management'] },
+    { name: 'Grande Phase', price: '', deposit: '$10,000', profitTarget: '20% in 30 Days', features: ['One-Time Payment', 'Deposit of $10,000', 'Profit Target: 20%', 'Expert Trader Management'] },
   ]
 
   return (

@@ -91,7 +91,7 @@ export default function HomePage() {
 
       <section id="profits" className="py-20 bg-gray-900 text-white px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-8">Our Trade Setups & Profits</h2>
+          <h2 className="text-4xl font-bold text-center mb-8">Our Trade Setups, Profits & Testimonials</h2>
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={20}
@@ -115,7 +115,7 @@ export default function HomePage() {
 
       <section className="py-20 px-6 bg-white text-gray-900">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Why Choose UwehFx?</h2>
+          <h2 className="text-4xl font-bold mb-6">Why Choose UwehsTradeHub?</h2>
           <ul className="space-y-4 text-left max-w-md mx-auto text-lg">
             <li className="flex items-start">
               <span className="text-green-600 font-bold text-xl mr-2">✓</span>
@@ -186,12 +186,12 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-2">Uwehs Trade HUB</h3>
-            <p className="text-sm text-white/70">Empowering traders through education, signals, and community. Let&apos;s grow together.</p>
+            <p className="text-sm text-white/70">Empowering traders through education, signals, and community. Impossible Is Absolutely Nothing...</p>
 
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-2">Contact</h4>
-            <p>Email: <a href="@gmail.com" className="underline">@gmail.com</a></p>
+            <p>Email: <a href="Uwehstradehub@gmail.com" className="underline">Uwehstradehub@gmail.com</a></p>
             <p>Phone: +2347049507442</p>
           </div>
           <div>
@@ -204,7 +204,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="text-center text-white/50 text-sm mt-10">
-          © {new Date().getFullYear()} UwehFX. All rights reserved.
+          © {new Date().getFullYear()} UwehsTradeHub. All rights reserved.
         </div>
       </footer>
     </div>
