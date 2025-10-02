@@ -28,6 +28,8 @@ export default function Navbar({ hasPlan }: NavbarProps) {
     '/admin-login',
     '/account-management-public',
     '/admin/accountManagement',
+    '/admin/free-signal',
+    '/admin/free-mentorship',
   ]
 
   if (hideNavbarPaths.includes(pathname)) return null
@@ -53,55 +55,44 @@ export default function Navbar({ hasPlan }: NavbarProps) {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition">
-              Dashboard
-            </Link>
-            <Link href="/subscription" className="text-gray-700 hover:text-blue-600 transition">
-              My Subscription
-            </Link>
-            <Link href="/transactions" className="text-gray-700 hover:text-blue-600 transition">
-              Transaction History
-            </Link>
-            <Link href="/plans" className="text-gray-700 hover:text-blue-600 transition">
-              Services / Plans
-            </Link>
-            {hasPlan && (
-              <Link href="/signals" className="text-gray-700 hover:text-blue-600 transition">
-                Signal Room
-              </Link>
-            )}
-            <Link href="/account-settings" className="text-gray-700 hover:text-blue-600 transition">
-              Account Settings
-            </Link>
+          <div className="hidden md:flex md:items-center md:space-x-4 text-sm">
+            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition">Dashboard</Link>
+            <Link href="/subscription" className="text-gray-700 hover:text-blue-600 transition">My Subscription</Link>
+            <Link href="/transactions" className="text-gray-700 hover:text-blue-600 transition">Transaction History</Link>
+            <Link href="/plans" className="text-gray-700 hover:text-blue-600 transition">Services / Plans</Link>
+            {hasPlan && <Link href="/signals" className="text-gray-700 hover:text-blue-600 transition">Signal Room</Link>}
+            <Link href="/account-settings" className="text-gray-700 hover:text-blue-600 transition">Account Settings</Link>
+            <Link href="/free-signals" className="text-gray-700 hover:text-blue-600 transition">Free Signal</Link>
+            <Link href="/free-mentorship" className="text-gray-700 hover:text-blue-600 transition">Free Mentorship</Link>
           </div>
 
+
           {/* Right side desktop */}
-<div className="hidden md:flex items-center space-x-8 text-sm">
-  <Link
-    href="/"
-    className="text-gray-600 hover:text-gray-800 transition"
-    title="Return to main website"
-  >
-    Home Website
-  </Link>
+          <div className="hidden md:flex items-center space-x-8 text-sm">
+            <Link
+              href="/"
+              className="text-gray-600 hover:text-gray-800 transition"
+              title="Return to main website"
+            >
+              Home Website
+            </Link>
 
-  {/* Account Management Link */}
-  <Link
-    href="account-management"
-    className="text-gray-600 hover:text-gray-800 transition"
-    title="Request account management"
-  >
-    Account Management
-  </Link>
+            {/* Account Management Link */}
+            <Link
+              href="account-management"
+              className="text-gray-600 hover:text-gray-800 transition"
+              title="Request account management"
+            >
+              Account Management
+            </Link>
 
-  <button
-    onClick={handleLogout}
-    className="text-red-600 hover:text-red-800 font-semibold transition"
-  >
-    Logout
-  </button>
-</div>
+            <button
+              onClick={handleLogout}
+              className="text-red-600 hover:text-red-800 font-semibold transition"
+            >
+              Logout
+            </button>
+          </div>
 
 
           {/* Mobile menu button */}
@@ -129,9 +120,8 @@ export default function Navbar({ hasPlan }: NavbarProps) {
 
         {/* Mobile menu */}
         <div
-          className={`md:hidden bg-white border-t border-gray-300 transition-max-height duration-300 ease-in-out overflow-hidden ${
-            isOpen ? 'max-h-screen' : 'max-h-0'
-          }`}
+          className={`md:hidden bg-white border-t border-gray-300 transition-max-height duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-screen' : 'max-h-0'
+            }`}
         >
           <div className="flex flex-col py-4 space-y-1 px-4">
             <Link href="/dashboard" onClick={() => setIsOpen(false)} className="block py-2 px-3 rounded hover:bg-gray-100 transition">
@@ -154,6 +144,21 @@ export default function Navbar({ hasPlan }: NavbarProps) {
             <Link href="/account-settings" onClick={() => setIsOpen(false)} className="block py-2 px-3 rounded hover:bg-gray-100 transition">
               Account Settings
             </Link>
+            <Link
+              href="/free-signals"
+              onClick={() => setIsOpen(false)}
+              className="block py-2 px-3 rounded hover:bg-gray-100 transition"
+            >
+              Free Signal
+            </Link>
+            <Link
+              href="/free-mentorship"
+              onClick={() => setIsOpen(false)}
+              className="block py-2 px-3 rounded hover:bg-gray-100 transition"
+            >
+              Free Mentorship
+            </Link>
+
             <hr className="my-3 border-gray-300" />
             <Link href="/" onClick={() => setIsOpen(false)} className="block py-2 px-3 rounded hover:bg-gray-100 transition">
               Home Website

@@ -27,6 +27,13 @@ export default function AdminNavbar() {
           <Link href="/admin/users" className="hover:underline">
             All Users
           </Link>
+          <Link href="/admin/free-signals" className="hover:underline">
+            Free Signals
+          </Link>
+          <Link href="/admin/free-mentorship" className="hover:underline">
+            Free Mentorship
+          </Link>
+
         </div>
 
         {/* Right side links for desktop */}
@@ -87,7 +94,7 @@ export default function AdminNavbar() {
           >
             All Users
           </Link>
-            <Link
+          <Link
             href="/admin/accountManagement"
             className="block hover:underline"
             onClick={() => setOpen(false)}
@@ -108,6 +115,21 @@ export default function AdminNavbar() {
           >
             Logout
           </Link>
+          <Link
+            href="/admin/free-signals"
+            className="block hover:underline"
+            onClick={() => setOpen(false)}
+          >
+            Free Signals
+          </Link>
+                    <Link
+            href="/admin/free-mentorship"
+            className="block hover:underline"
+            onClick={() => setOpen(false)}
+          >
+            Free Mentorship
+          </Link>
+
         </div>
       )}
     </nav>

@@ -34,25 +34,31 @@ export default function HomePage() {
             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Uwehs Trade HUB</h1>
           </div>
 
-          <nav className="hidden md:flex space-x-4 items-center">
-            <a href="#features" className="hover:text-blue-400 transition-colors duration-300 relative group">
-              Features
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#pricing" className="hover:text-blue-400 transition-colors duration-300 relative group">
-              Pricing
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#profits" className="hover:text-blue-400 transition-colors duration-300 relative group">
-              Trade Setups
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="/account-management-public" className="hover:text-blue-400 transition-colors duration-300 relative group">
-              Account Management
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="/login" className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-2 rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105">Login</a>
-          </nav>
+         {/* NAVBAR LINKS */}
+<nav className="hidden md:flex space-x-4 items-center">
+  <a href="#features" className="hover:text-blue-400 transition-colors duration-300 relative group">
+    Features
+    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
+  </a>
+  <a href="#free" className="hover:text-blue-400 transition-colors duration-300 relative group">
+    Free Offers
+    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
+  </a>
+  <a href="#pricing" className="hover:text-blue-400 transition-colors duration-300 relative group">
+    Pricing
+    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
+  </a>
+  <a href="#profits" className="hover:text-blue-400 transition-colors duration-300 relative group">
+    Trade Setups
+    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
+  </a>
+  <a href="/account-management-public" className="hover:text-blue-400 transition-colors duration-300 relative group">
+    Account Management
+    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
+  </a>
+  <a href="/login" className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-2 rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105">Login</a>
+</nav>
+
 
           <button
             className="md:hidden text-white focus:outline-none"
@@ -69,6 +75,7 @@ export default function HomePage() {
           <div className="md:hidden mt-4 px-4 space-y-3 animate-fadeIn">
             <a href="#features" className="block hover:text-blue-400 transition-colors">Features</a>
             <a href="#pricing" className="block hover:text-blue-400 transition-colors">Pricing</a>
+            <a href="#free" className="block hover:text-blue-400 transition-colors">Free Offers</a>
             <a href="#profits" className="block hover:text-blue-400 transition-colors">Trade Setups</a>
             <a href="/account-management-public" className="block hover:text-blue-400 transition-colors">Account Management</a>
             <a href="/login" className="block bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-xl w-max hover:shadow-lg transition-all">Login</a>
@@ -132,7 +139,51 @@ export default function HomePage() {
         </div>
       </section>
 
+            {/* Free Features Section */}
+      <section id="free" className="py-20 bg-gradient-to-r from-blue-900 to-cyan-900 text-white px-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            Free for the Rest of {new Date().getFullYear()}
+          </h2>
+          <p className="text-lg text-white/70 mb-12">
+            To celebrate our community, enjoy free access to signals and mentorship for the rest of this year!
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Free Signals */}
+            <div className="p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-blue-400/50 transition-all duration-300 hover:scale-105">
+              <h3 className="text-2xl font-bold mb-3 text-blue-300">Free Signals</h3>
+              <p className="mb-6 text-white/70">
+                Get daily trading signals directly from Uweh — available both on Telegram and within your dashboard.
+              </p>
+              <a 
+                href="/login" 
+                className="inline-block bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-3 rounded-xl font-semibold hover:scale-105 hover:shadow-lg transition-all"
+              >
+                Access Free Signals
+              </a>
+            </div>
+
+            {/* Free Mentorship */}
+            <div className="p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-blue-400/50 transition-all duration-300 hover:scale-105">
+              <h3 className="text-2xl font-bold mb-3 text-purple-300">Free Mentorship</h3>
+              <p className="mb-6 text-white/70">
+                Join our weekly mentorship sessions on Zoom — learn strategy, psychology, and real trading skills.
+              </p>
+              <a 
+                href="/mentorship" 
+                className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 rounded-xl font-semibold hover:scale-105 hover:shadow-lg transition-all"
+              >
+                Join Mentorship
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
             <section id="features" className="py-20 bg-white text-black">
+           <h2 className="text-4xl font-bold mb-6">About us</h2>   
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 px-6">
           {[
             { title: 'Private Signal Room', desc: 'Only your paid subscribers can access premium trading calls securely.' },
