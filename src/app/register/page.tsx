@@ -4,7 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { TrendingUp, Lock, Mail, User } from 'lucide-react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/lib/firebase'; // adjust path if needed
+import { auth, firestore } from '@/lib/firebase';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -18,7 +19,18 @@ export default function RegisterPage() {
     setError(null);
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      // Create user in Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Create Firestore document for the user
+      await setDoc(doc(firestore, 'users', user.uid), {
+        email: user.email,
+        role: 'user',
+        plan: null,
+        createdAt: serverTimestamp(),
+      });
+
       // redirect after registration
       window.location.href = '/dashboard';
     } catch (err: unknown) {
