@@ -119,8 +119,8 @@ export default function LoginPage() {
 
             <p className="text-center text-sm text-white/50 mt-8">
               By signing in, you agree to our{' '}
-              <Link href="/terms" className="text-blue-400">Terms</Link> and{' '}
-              <Link href="/privacy" className="text-blue-400">Privacy Policy</Link>
+              <Link href="#" className="text-blue-400">Terms</Link> and{' '}
+              <Link href="#" className="text-blue-400">Privacy Policy</Link>
             </p>
           </div>
         </div>
