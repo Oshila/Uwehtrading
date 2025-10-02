@@ -116,7 +116,7 @@ export default function AdminNavbar() {
             Logout
           </Link>
           <Link
-            href="/admin/free-signals"
+            href="/admin/free-signal"
             className="block hover:underline"
             onClick={() => setOpen(false)}
           >
