@@ -19,6 +19,7 @@ export default function Navbar({ hasPlan }: NavbarProps) {
     '/',
     '/login',
     '/register',
+    '/forgot-password',
     '/admin',
     '/admin/payments',
     '/admin/users',
@@ -30,6 +31,7 @@ export default function Navbar({ hasPlan }: NavbarProps) {
     '/admin/accountManagement',
     '/admin/free-signal',
     '/admin/free-mentorship',
+    
   ]
 
   if (hideNavbarPaths.includes(pathname)) return null
