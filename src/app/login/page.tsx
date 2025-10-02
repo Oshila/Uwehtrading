@@ -21,8 +21,12 @@ export default function LoginPage() {
       await signInWithEmailAndPassword(auth, email, password);
       // redirect after login
       window.location.href = '/dashboard';
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
     } finally {
       setIsLoading(false);
     }

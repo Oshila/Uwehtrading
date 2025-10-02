@@ -12,10 +12,19 @@ import {
   getDoc,
   updateDoc,
   deleteDoc,
+  Timestamp,
 } from 'firebase/firestore'
 
+type FreeSignal = {
+  id: string
+  text: string
+  senderUid: string
+  senderRole: string
+  timestamp: Timestamp | Date
+}
+
 export default function AdminFreeSignal() {
-  const [signals, setSignals] = useState<any[]>([])
+  const [signals, setSignals] = useState<FreeSignal[]>([])
   const [newSignal, setNewSignal] = useState('')
   const [isAvailable, setIsAvailable] = useState(true)
   const [loading, setLoading] = useState(true)
@@ -28,7 +37,15 @@ export default function AdminFreeSignal() {
       const signalsRef = collection(firestore, 'free_signals')
       const q = query(signalsRef, orderBy('timestamp', 'asc'))
       const snapshot = await getDocs(q)
-      setSignals(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })))
+
+      const fetchedSignals: FreeSignal[] = snapshot.docs.map(doc => ({
+        id: doc.id,
+        text: doc.data().text,
+        senderUid: doc.data().senderUid,
+        senderRole: doc.data().senderRole,
+        timestamp: doc.data().timestamp,
+      }))
+      setSignals(fetchedSignals)
 
       // Fetch availability
       const configRef = doc(firestore, 'config', 'free_signals')
@@ -64,9 +81,13 @@ export default function AdminFreeSignal() {
   }
 
   const toggleAvailability = async () => {
-    const configRef = doc(firestore, 'config', 'free_signals')
-    await updateDoc(configRef, { isAvailable: !isAvailable })
-    setIsAvailable(!isAvailable)
+    try {
+      const configRef = doc(firestore, 'config', 'free_signals')
+      await updateDoc(configRef, { isAvailable: !isAvailable })
+      setIsAvailable(!isAvailable)
+    } catch (err) {
+      console.error('Error toggling availability:', err)
+    }
   }
 
   const handleDeleteSignal = async (id: string) => {
@@ -120,7 +141,9 @@ export default function AdminFreeSignal() {
             <div>
               <p>{signal.text}</p>
               <small className="text-gray-500">
-                {signal.timestamp?.toDate ? new Date(signal.timestamp.toDate()).toLocaleString() : ''}
+                {signal.timestamp instanceof Timestamp
+                  ? signal.timestamp.toDate().toLocaleString()
+                  : new Date(signal.timestamp).toLocaleString()}
               </small>
             </div>
             <button

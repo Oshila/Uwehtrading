@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { firestore } from '@/lib/firebase'
-import { collection, getDocs, query, orderBy, doc, getDoc } from 'firebase/firestore'
+import { collection, getDocs, query, orderBy, doc, getDoc, Timestamp } from 'firebase/firestore'
 
 type Mentorship = {
   id: string
   title: string
   description?: string
   zoomLink: string
-  date: any
+  date: Timestamp | Date
 }
 
 export default function FreeMentorship() {
@@ -26,19 +26,22 @@ export default function FreeMentorship() {
       const availability = configSnap.exists() ? configSnap.data()?.isAvailable ?? true : true
       setIsAvailable(availability)
 
-      // Fetch sessions only if available
       if (availability) {
+        // Fetch sessions
         const sessionsRef = collection(firestore, 'free_mentorship')
         const q = query(sessionsRef, orderBy('date', 'asc'))
         const snapshot = await getDocs(q)
 
-        const fetchedSessions = snapshot.docs.map(doc => ({
+        const fetchedSessions: Mentorship[] = snapshot.docs.map(doc => ({
           id: doc.id,
-          ...doc.data(),
-        })) as Mentorship[]
+          title: doc.data().title,
+          description: doc.data().description,
+          zoomLink: doc.data().zoomLink,
+          date: doc.data().date,
+        }))
         setSessions(fetchedSessions)
       } else {
-        setSessions([]) // clear sessions if not available
+        setSessions([])
       }
     } catch (err) {
       console.error(err)
@@ -88,7 +91,9 @@ export default function FreeMentorship() {
               <h3 className="font-semibold text-lg">{session.title}</h3>
               {session.description && <p className="text-gray-600">{session.description}</p>}
               <p className="text-gray-500 text-sm">
-                {session.date?.toDate ? new Date(session.date.toDate()).toLocaleString() : new Date(session.date).toLocaleString()}
+                {session.date instanceof Timestamp
+                  ? session.date.toDate().toLocaleString()
+                  : new Date(session.date).toLocaleString()}
               </p>
             </div>
             <a
