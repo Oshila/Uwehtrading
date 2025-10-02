@@ -171,7 +171,7 @@ export default function HomePage() {
                 Join our weekly mentorship sessions on Zoom — learn strategy, psychology, and real trading skills.
               </p>
               <a 
-                href="/mentorship" 
+                href="login" 
                 className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 rounded-xl font-semibold hover:scale-105 hover:shadow-lg transition-all"
               >
                 Join Mentorship
