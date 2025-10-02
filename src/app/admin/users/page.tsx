@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { firestore } from '@/lib/firebase'
+import { firestore, auth } from '@/lib/firebase'
 import {
   collection,
   getDocs,
@@ -71,13 +71,35 @@ export default function UsersAdmin() {
       // If demoting from expert, remove from experts collection
       if (newRole !== 'expert') {
         const expertDocRef = doc(firestore, 'experts', uid)
-        await deleteDoc(expertDocRef).catch(() => {
-          // ignore error if doc doesn't exist
-        })
+        await deleteDoc(expertDocRef).catch(() => {})
       }
     } catch (err) {
       console.error(err)
       alert('Failed to update user role')
+    }
+  }
+
+  const handleDeleteUser = async (uid: string, role?: UserRole) => {
+    if (auth.currentUser?.uid === uid) {
+      alert("You cannot delete yourself!")
+      return
+    }
+
+    if (!confirm('Are you sure you want to delete this user?')) return
+
+    try {
+      await deleteDoc(doc(firestore, 'users', uid))
+
+      if (role === 'expert') {
+        await deleteDoc(doc(firestore, 'experts', uid)).catch(() => {})
+      }
+
+      setUsers(prev => prev.filter(user => user.uid !== uid))
+
+      alert('User deleted successfully')
+    } catch (err) {
+      console.error(err)
+      alert('Failed to delete user')
     }
   }
 
@@ -107,26 +129,17 @@ export default function UsersAdmin() {
         <tbody>
           {users.length === 0 && (
             <tr>
-              <td
-                colSpan={6}
-                className="text-center p-4 text-gray-500 italic"
-              >
+              <td colSpan={6} className="text-center p-4 text-gray-500 italic">
                 No users found.
               </td>
             </tr>
           )}
           {users.map((user) => (
             <tr key={user.uid} className="hover:bg-gray-50">
-              <td className="p-2 border border-gray-300 text-sm break-all">
-                {user.uid}
-              </td>
-              <td className="p-2 border border-gray-300">
-                {user.name ?? 'N/A'}
-              </td>
+              <td className="p-2 border border-gray-300 text-sm break-all">{user.uid}</td>
+              <td className="p-2 border border-gray-300">{user.name ?? 'N/A'}</td>
               <td className="p-2 border border-gray-300">{user.email}</td>
-              <td className="p-2 border border-gray-300 capitalize">
-                {user.role ?? 'user'}
-              </td>
+              <td className="p-2 border border-gray-300 capitalize">{user.role ?? 'user'}</td>
               <td className="p-2 border border-gray-300">{user.plan ?? 'None'}</td>
               <td className="p-2 border border-gray-300 space-x-2">
                 {user.role === 'admin' ? (
@@ -159,6 +172,13 @@ export default function UsersAdmin() {
                     </button>
                   </>
                 )}
+
+                <button
+                  className="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 ml-2"
+                  onClick={() => handleDeleteUser(user.uid, user.role)}
+                >
+                  Delete User
+                </button>
               </td>
             </tr>
           ))}
