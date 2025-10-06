@@ -11,6 +11,7 @@ type Mentorship = {
   description?: string
   zoomLink: string
   date: Timestamp | Date
+  isActive?: boolean
 }
 
 export default function FreeMentorship() {
@@ -39,6 +40,7 @@ export default function FreeMentorship() {
             description: data.description,
             zoomLink: data.zoomLink,
             date: data.date,
+            isActive: data.isActive ?? false,
           }
         })
         setSessions(fetchedSessions)
@@ -77,7 +79,16 @@ export default function FreeMentorship() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Free Mentorship Sessions</h2>
+      <h2 className="text-3xl font-bold mb-3 text-center text-gray-800">
+        Free Mentorship Sessions
+      </h2>
+
+      {/* ✅ Motivational Text */}
+      <p className="text-center text-gray-700 mb-6 text-sm sm:text-base">
+        📊 <strong>Want to level up your trading skills?</strong><br />
+        Join our <strong>FREE Online Mentorship Class</strong> — 3 months of expert guidance!<br />
+        <span className="text-blue-600 font-medium">#ForexLearning #UwehsTradeHub</span>
+      </p>
 
       {/* ✅ Local banner from /public */}
       <div className="mb-6">
@@ -109,15 +120,34 @@ export default function FreeMentorship() {
                   ? session.date.toDate().toLocaleString()
                   : new Date(session.date).toLocaleString()}
               </p>
+
+              {/* Status message */}
+              <p className="text-sm mt-1">
+                Status:{' '}
+                <span className={session.isActive ? 'text-green-600' : 'text-red-500'}>
+                  {session.isActive ? 'Active' : 'Not Active Yet'}
+                </span>
+              </p>
             </div>
-            <a
-              href={session.zoomLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 sm:mt-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition"
-            >
-              Join Zoom
-            </a>
+
+            {/* Zoom Link Button */}
+            {session.isActive ? (
+              <a
+                href={session.zoomLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 sm:mt-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition"
+              >
+                Join Zoom
+              </a>
+            ) : (
+              <button
+                disabled
+                className="mt-3 sm:mt-0 bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed"
+              >
+                Link not active yet
+              </button>
+            )}
           </div>
         ))}
       </div>
