@@ -22,6 +22,7 @@ type Mentorship = {
   zoomLink: string
   date: Timestamp | Date
   isActive?: boolean
+  isCompleted?: boolean
 }
 
 export default function AdminFreeMentorship() {
@@ -93,7 +94,8 @@ export default function AdminFreeMentorship() {
         description: newDescription,
         zoomLink: newZoomLink,
         date: Timestamp.fromDate(new Date(newDate)),
-        isActive: false, // default inactive until admin enables it
+        isActive: false, // default inactive
+        isCompleted: false, // default not completed
         createdBy: 'admin',
         timestamp: new Date(),
       })
@@ -161,13 +163,25 @@ export default function AdminFreeMentorship() {
     }
   }
 
+  // 🔹 Mark session completed/uncompleted
+  const toggleSessionCompleted = async (id: string, newStatus: boolean) => {
+    try {
+      await setDoc(doc(firestore, 'free_mentorship', id), { isCompleted: newStatus }, { merge: true })
+      fetchSessions()
+    } catch (err) {
+      console.error('Error updating completion status:', err)
+    }
+  }
+
   if (loading) return <p className="text-center mt-6">Loading mentorship data...</p>
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Admin — Free Mentorships</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+        Admin — Free Mentorships
+      </h1>
 
-      {/* Toggle global availability */}
+      {/* 🔹 Toggle global availability */}
       <button
         onClick={toggleAvailability}
         className={`mb-6 px-4 py-2 rounded ${
@@ -177,7 +191,7 @@ export default function AdminFreeMentorship() {
         {isAvailable ? 'Disable Free Mentorships' : 'Enable Free Mentorships'}
       </button>
 
-      {/* Add new session */}
+      {/* 🔹 Add new session */}
       {isAvailable && (
         <div className="mb-6 space-y-3">
           <input
@@ -215,7 +229,7 @@ export default function AdminFreeMentorship() {
         </div>
       )}
 
-      {/* Session List */}
+      {/* 🔹 Session List */}
       <div className="space-y-3">
         {sessions.length === 0 && <p className="text-gray-500">No mentorship sessions yet.</p>}
 
@@ -237,6 +251,10 @@ export default function AdminFreeMentorship() {
                 Status:{' '}
                 <span className={session.isActive ? 'text-green-600' : 'text-red-500'}>
                   {session.isActive ? 'Active' : 'Inactive'}
+                </span>{' '}
+                |{' '}
+                <span className={session.isCompleted ? 'text-purple-600' : 'text-gray-400'}>
+                  {session.isCompleted ? 'Completed' : 'Pending'}
                 </span>
               </p>
 
@@ -254,7 +272,7 @@ export default function AdminFreeMentorship() {
               </a>
             </div>
 
-            <div className="flex gap-2 mt-3 sm:mt-0">
+            <div className="flex flex-wrap gap-2 mt-3 sm:mt-0">
               <button
                 onClick={() => handleEdit(session)}
                 className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded transition"
@@ -270,6 +288,16 @@ export default function AdminFreeMentorship() {
                 } text-white px-3 py-1 rounded transition`}
               >
                 {session.isActive ? 'Deactivate' : 'Activate'}
+              </button>
+              <button
+                onClick={() => toggleSessionCompleted(session.id, !session.isCompleted)}
+                className={`${
+                  session.isCompleted
+                    ? 'bg-purple-500 hover:bg-purple-600'
+                    : 'bg-indigo-500 hover:bg-indigo-600'
+                } text-white px-3 py-1 rounded transition`}
+              >
+                {session.isCompleted ? 'Unmark Completed' : 'Mark Completed'}
               </button>
               <button
                 onClick={() => handleDelete(session.id)}

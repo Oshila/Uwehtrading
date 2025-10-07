@@ -12,10 +12,12 @@ type Mentorship = {
   zoomLink: string
   date: Timestamp | Date
   isActive?: boolean
+  isCompleted?: boolean
 }
 
 export default function FreeMentorship() {
-  const [sessions, setSessions] = useState<Mentorship[]>([])
+  const [upcomingSessions, setUpcomingSessions] = useState<Mentorship[]>([])
+  const [pastSessions, setPastSessions] = useState<Mentorship[]>([])
   const [isAvailable, setIsAvailable] = useState(true)
   const [loading, setLoading] = useState(true)
 
@@ -41,11 +43,19 @@ export default function FreeMentorship() {
             zoomLink: data.zoomLink,
             date: data.date,
             isActive: data.isActive ?? false,
+            isCompleted: data.isCompleted ?? false,
           }
         })
-        setSessions(fetchedSessions)
+
+        // Separate upcoming vs past sessions
+        const upcoming = fetchedSessions.filter(s => !s.isCompleted)
+        const past = fetchedSessions.filter(s => s.isCompleted)
+
+        setUpcomingSessions(upcoming)
+        setPastSessions(past)
       } else {
-        setSessions([])
+        setUpcomingSessions([])
+        setPastSessions([])
       }
     } catch (err) {
       console.error('Error fetching mentorship data:', err)
@@ -102,12 +112,15 @@ export default function FreeMentorship() {
         />
       </div>
 
-      {sessions.length === 0 && (
-        <p className="text-center text-gray-500 italic">No mentorship sessions available yet.</p>
+      {/* --- Active & Upcoming Sessions --- */}
+      <h3 className="text-2xl font-semibold mb-4 text-gray-800 text-center">Upcoming Sessions</h3>
+
+      {upcomingSessions.length === 0 && (
+        <p className="text-center text-gray-500 italic">No upcoming mentorship sessions yet.</p>
       )}
 
-      <div className="space-y-4">
-        {sessions.map(session => (
+      <div className="space-y-4 mb-10">
+        {upcomingSessions.map(session => (
           <div
             key={session.id}
             className="bg-gray-50 p-4 rounded shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center"
@@ -121,16 +134,14 @@ export default function FreeMentorship() {
                   : new Date(session.date).toLocaleString()}
               </p>
 
-              {/* Status message */}
               <p className="text-sm mt-1">
                 Status:{' '}
-                <span className={session.isActive ? 'text-green-600' : 'text-red-500'}>
+                <span className={session.isActive ? 'text-green-600' : 'text-orange-500'}>
                   {session.isActive ? 'Active' : 'Not Active Yet'}
                 </span>
               </p>
             </div>
 
-            {/* Zoom Link Button */}
             {session.isActive ? (
               <a
                 href={session.zoomLink}
@@ -151,6 +162,31 @@ export default function FreeMentorship() {
           </div>
         ))}
       </div>
+
+      {/* --- Past Sessions --- */}
+      {pastSessions.length > 0 && (
+        <div>
+          <h3 className="text-2xl font-semibold mb-4 text-gray-800 text-center">Past Sessions</h3>
+
+          <div className="space-y-4">
+            {pastSessions.map(session => (
+              <div
+                key={session.id}
+                className="bg-gray-100 p-4 rounded shadow-sm border border-gray-200"
+              >
+                <h3 className="font-semibold text-lg text-gray-700">{session.title}</h3>
+                {session.description && <p className="text-gray-600">{session.description}</p>}
+                <p className="text-gray-500 text-sm">
+                  {session.date instanceof Timestamp
+                    ? session.date.toDate().toLocaleString()
+                    : new Date(session.date).toLocaleString()}
+                </p>
+                <p className="text-sm text-blue-600 mt-1 italic">Session completed ✅</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
