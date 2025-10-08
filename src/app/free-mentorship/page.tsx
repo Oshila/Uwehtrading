@@ -149,7 +149,7 @@ export default function FreeMentorship() {
                 rel="noopener noreferrer"
                 className="mt-3 sm:mt-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition"
               >
-                Join Zoom
+                Join Google Meet
               </a>
             ) : (
               <button
